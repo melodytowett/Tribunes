@@ -11,7 +11,10 @@
         <div class="container-fluid">
             <div class="navrbar-header">
                 <a class="navbar-brand text-white" href=" {% url 'newsToday' %} "> The Moringa Tribune</a>
-                 <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+                
+            </div>
+
+                   <form class="navbar-form" role="search" action="{% url 'search_results' %}">
 
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search Article" name="article">
@@ -21,7 +24,6 @@
                     </div>
 
                  </form>
-            </div>
         </div>
     </nav>
     

@@ -40,4 +40,4 @@ def article(request,article_id):
         article = Article.objects.get(id = article_id)
     except ValueError:
         raise Http404()
-    return render(request,"all-news/article.html",{"articles":article})
+    return render(request,"all-news/article.html",{"article":article})
