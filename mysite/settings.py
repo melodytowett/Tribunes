@@ -15,10 +15,21 @@ import os
 import dj_database_url 
 from decouple import config,Csv
 import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 MODE = config("MODE",default="dev")
 SECRET_KEY = config('SECRET_KEY')
+MOVIE_API_KEY = config('MOVIE_API_KEY')
+MOVIE_BASE_URL = config('MOVIE_BASE_URL')
 DEBUG = config('DEBUG',default=False, cast= bool)
+# Email configurations remember to install python-decouple
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 #development
 if config('MODE')=="dev":
     DATABASES= {
@@ -44,7 +55,13 @@ else:
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+LOGIN_REDIRECT_URL = "/" 
 
+cloudinary.config( 
+  cloud_name = "melo-cloud", 
+  api_key = "471374148232439", 
+  api_secret = "d0MpcQfMP4qllWvto7b1jL9baeE" 
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -68,6 +85,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'tinymce',
+    'crispy_forms',
+    'cloudinary',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +158,11 @@ TIME_ZONE = 'Africa/Nairobi'
 USE_I18N = True
 
 USE_TZ = True
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
